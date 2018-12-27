@@ -36,17 +36,17 @@ $on-laptop:        800px;
 //     }
 // }
 @mixin media-query($device) {
-    @media screen and (max-width: $device) {
-        @content;
-    }
+  @media screen and (max-width: $device) {
+    @content;
+  }
 }
 
 
 
 // Import partials from `sass_dir` (defaults to `_sass`)
 @import
-        "bootstrap-readable",
-        "layout",
-        "custom",
-        "syntax-highlighting"
+"bootstrap-readable",
+"layout",
+"custom",
+"syntax-highlighting"
 ;
