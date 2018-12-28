@@ -84,3 +84,44 @@ The hyper parameter for the GAE were not changed. Tau is set to 1.00, gamma to 0
 When the steps were changed from 10 to 20 the agent was able to learn better  actions.
 
 The optimization algorithm was changed from conventional RMSProp to Adam. The choice of optimization algorithm is again due to the better performance of algorithm even in noisy conditions as compared to RMSProp
+
+## Reward Evaluation
+To learn about the behavior of agent 2 kinds of reward functions were introduced in the environment. The first one was simple reward function which give reward of +10 when the agent wins the game and reward of -10 when the agent losses the game. 
+The second reward function set the reward to -10 in either case of win or loss of game for the purposes of extending the episode length so that the agent plays defensively. The two reward functions were evaluated in the A3C environment described above.
+
+### Results and performance analysis 
+The configurations and the environment setup described above were evaluated on test setup of 20 games. It was observed that vanilla policy gradient agent was unable to learn well on the environment. It showed confused behaviour for all the configurations. 
+The reason for this kind of behaviour could be lack of image pre-processing. Furthermore, it is also known that Deep Reinforcement Learning algorithm are very sensitive to hyper parameter tuning, it could be possible that the hyper parameters were not tuned properly for vanilla policy gradient to work.
+
+The agent learned on the above mentioned settings. The number of individual workers were set to 4. The agent learned on the above mentioned setting for 4 days. Two A3C agents were instantiated to differentiate and compare the performance of different reward functions mentioned above. 
+The agent which gets +10 when it wins is calls offensive agent and the agent with -10 reward when it wins is called defensive agent. The graphs in Figures below shows the performance of offensive agent. 
+The graph shows that the agent started as a naive agent and wins only some games by luck. However, after training for few hours it improved and started to win almost half of the games within 2 days. 
+The progress after 2 days was as steady and in the coming 2 days it only improved from 50 to 70. If we look at the length of the game it shows steady increase which means that agent was able to anticipate the moves of the opponent and follow the ball even and hit it more than once per game, still it could be seen that the agent was unable to go beyond 3 hits after 2 days.
+
+![ ]({{site.baseurl}}/images/reward-off.png)
+
+![ ]({{site.baseurl}}/images/ep-length-off.png)
+
+Contrary to the offensive agent, defensive agent started with a high negative reward. Figures below show the performance of defensive agent. This means that most of the time the agent was losing the game. 
+However, the initial episode length was larger than that of offensive agent and it continues to grow as the time passed, showing that agent was learning to make longer games than to win. 
+The surprising observation was that the agent was able to beat the opponent in the process. The reason for this behavior could be simple ball following approach of simple ai agent. 
+Another explanation of this behavior could be that the agent overfitted on the simple ai agent and was able to counter most of the moves made by the agent. 
+Comparing the two techniques show that defensive agent was able to learn fast in this environment with simple ai agent as the opponent than aggressive agent.
+
+![ ]({{site.baseurl}}/images/reward-def.png)
+ 
+![ ]({{site.baseurl}}/images/ep-length-def.png)
+
+As the final experiment the two agents were competed with each other and it was observed that the offensive agent dominated the game. 
+One reason for this behavior could be that the defensive agent was expecting the other agent to play defensive as well whereas offensive agent was trying to win the game. 
+Another reason as mentioned above could be that the defensive agent has overfitted the simple ai agent.
+
+## Conclusions
+
+Based on our experiments we can fairly conclude that the A3C approach resulted in better outcomes than traditional Policy Gradient method. 
+We further found that using an actor critic approach for this task of making an agent to learn play Pong would is more effective as we have learned during the progress of the course that Actor-Critic methods offers the strengths of both value based and policy gradient methods.
+
+Furthermore, A3C approach provides a novel way to make the agent learn faster and effectively better than other methods we explored. However, there is always room for improvement and the neural network architecture can be experimented with more. 
+Also we can apply experience replay techniques to improve the learning time.
+
+The code base for pong project could be found [here](https://github.com/dani1793/a3c-pong)
