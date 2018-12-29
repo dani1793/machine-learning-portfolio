@@ -5,4 +5,4 @@ categories: jekyll update
 img: profile.jpg
 ---
 
-My name is Daniyal Usmani. I am a master’s student in Aalto University pursuing my post graduate studies in Machine Learning. I like to read about latest developments in field of Machine Learning. Over the course of my degree I did several projects related to Machine Learning. In my leisure time I like to travel and try different food.
+I am Daniyal Usmani, currently pursuing my post-graduate studies in machine learning at Aalto University. I like to stay updated about latest developments and trends in field of Machine Learning. And in tenure of my degree, i have completed several projects related to my major. When I am not working  I like to travel and try different types of food.
