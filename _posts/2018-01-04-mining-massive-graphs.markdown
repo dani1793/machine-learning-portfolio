@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "Social Network Analysis"
+date:   2018-01-04
 categories: jekyll update
 img: social-network.png
 categories: two

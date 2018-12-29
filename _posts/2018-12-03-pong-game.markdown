@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Pong Game"
-date:   2018-12-12
+date:   2018-12-03
 categories: jekyll update
 img: pong.jpg
 categories: [one, two]

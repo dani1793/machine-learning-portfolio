@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "Sentimental Analysis"
+date:   2018-08-27
 categories: jekyll update
 img: sentiment.png
 ---
