@@ -6,7 +6,9 @@ categories: jekyll update
 img: data-science.jpeg
 categories: [one, two]
 ---
-In this post we analyze questioners for Helsinki 2017 municipal elections using different embeddings
+In this post we analyze questioners for Helsinki 2017 municipal elections using different embeddings. We are provided with Espoo data plot and we need to investigate the relationship between Helsinki response and Espoo response. The figure below shows embedded data from Espoo
+
+![ ]({{site.baseurl}}/images/election-2.png)
 
 Figure below shows the embedding for Helsinki Data. The quick look on the MDS plot shows that there is huge difference between the Espoo and Helsinki data. There are no clusters in the Helsinki data whereas there are some clusters present in Espoo data. The difference could be real, or it could be some noise added to the data. As MDS takes euclidian distance into account directly, the shape of the graph could be effected by the addition of noise. We therefore have to observe the other two plots created; namely PCA and ISOMAP.
 
