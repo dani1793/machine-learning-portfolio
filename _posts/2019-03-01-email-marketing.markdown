@@ -21,7 +21,8 @@ In this report we simulate the user behaviour to email campaigns and try to buil
 Reinforcement learning (RL) is a branch of machine learning which allows agents to interact with the environment by sequentially taking actions and observing rewards to maximize the cumulative reward. Figure below can be used to understand general flow of RL system. The agent takes action A<sub>t</sub> which effects the environment. The environment than generates the next state S<sub>t+1</sub>; which could depend upon action performed A<sub>t</sub> and current state of the system S<sub>t</sub>; and the reward R<sub>t</sub> for the agent. The agent based on the feedback provided by the environment decides which action to perform next. This action feedback loop continues until certain condition is satisfied.  Environments play an important role in RL systems, generally we generate simulations of actual environment to train the agent. Factors taken into account when simulating the environment decides how well the agent performs in real scenerios. Environments in RL domain are typically divided into two categories: episodic and continuing environments. In an episodic environment, the interaction sequence eventually terminates, at which point the environment resets and a new interaction sequence begins; whereas in continuing environments, there is a single interaction sequence that never terminates.
 
 ![ ]({{site.baseurl}}/images/RL-flow.png)
-
+<figcaption style="text-align:center">Fig 1: Basic Reinforcement Learning flow</figcaption>
+<hr/>
 RL problems can be modeled as Markov Decision Process (MDP), MDP is defined as a tuple (S, A, R, P). Where $$\textbf{S}$$ represents the state space. $$\textbf{A}$$ represents the action space, $$\textbf{R}$$ is the immediate reward, and $$\textbf{P}$$ is the state transition dynamics. For a certain process there exists a policy $$\pi$$ on $$\textbf{A}$$. The agent moves through the state space according to the actions provided by the policy. The set (s$$_{i}$$,a$$_{i}$$,r$$_{i}$$), state, action and its reward that agent follows is known as trajectory of the agent.  The equation below is used to represent optimal policy for RL systems.
 
 $$
@@ -54,10 +55,11 @@ The basic email campaign problem is divided into two part. The first part is to 
 We start by defining action feedback model. The agent has two actions that it could perform. It could either send the mail to the <span>**$$a_{s}$$**</span>, or it could remain idle <span>**$$a_{\bar{s}}$$**</span>. The user in return could provide with one of four feedback. The user can either unsubscribe **fb$$_{\text{dc}}$$**, ignore the mail **fb$$_{\text{ig}}$$**, click on the mail sent **fb$$_{\text{in}}$$** or open the advertisement link sent in the mail **fb$$_{\text{vi}}$$**. The model described is shown in Figure below. The selection of rewards is discussed next section.
 
 ![ ]({{site.baseurl}}/images/overall-agent.png)
-
+<figcaption style="text-align:center">Fig 2: Flow of RL Agent for email marketing</figcaption>
+<hr/>
 ![Preference State Transitions]({{site.baseurl}}/images/pref.png)
 <figcaption style="text-align:center">Fig 3: Preference State Transitions</figcaption>
-
+<hr/>
 ![Non Preference State Transitions]({{site.baseurl}}/images/non-pref.png)
 <figcaption style="text-align:center">Fig 4: Non Preference State Transitions</figcaption>
 
@@ -80,7 +82,7 @@ The objective of agent is to find optimized time and preferred categories for ea
 
 ![Cat overview]({{site.baseurl}}/images/cat-overview.png)
 <figcaption style="text-align:center">Fig 5: Mailing list overview</figcaption>
-
+<hr/>
 The space state for this system is different than conventional state space used in Q Learning. We train a separate model for each mailing list to find users who have high acceptance probability for that category. The action space of each agent in this scenario is equal to the number of users present in that mailing list. Hence, the tabular state space that agent needs to learn would consist of number of users x 365. Initially, agent will start with zero valued state space. As learning progresses, agent learns Q values for each user. Preferential users are expected to have more positive response than non preferential users, resulting in greater number of positive Q values.
 
 ## Experiments and Results
@@ -89,7 +91,7 @@ The system described above was configured to have 10 mailing lists and 5 users. 
 
 ![Cat overview]({{site.baseurl}}/images/iterations.png)
 <figcaption style="text-align:center">Fig 6: Iterations</figcaption>
-
+<hr/>
 After the mailings lists were trained. We had Q values for every user for every mailing list. To correlate the response of user to the Q values we converted them both into binary variables. The equations below shows how the Q values and user feedback was converted into binary variables. As the equation below shows $$fb_{b}$$ is the binary representation of user feedback showing user interest. $$Q_{b}$$ is the binary representation of Qvalues learned by the agent, $$Q_{b} = 1$$ shows that agent should sent the mail at that time instance to the specified user, whereas $$Q_{b} = 0$$ means mail should not be sent. This conversion of Qvalues consist of $$\beta$$ which is hyperparameter and could change depending on the number of mailing lists and users in the system. The system defined above has value of $$\beta$$ set to 25.
 
 ![eq-1]({{site.baseurl}}/images/eq-1.png){:height="160px" width="400px" .center-image}
@@ -98,23 +100,29 @@ To test the training accuracy of the system a preference user and a non preferen
 
 ![res-pref]({{site.baseurl}}/images/res-pref.png)
 <figcaption style="text-align:center">Fig 7: Results of preference category user</figcaption>
-
+<hr/>
 ![res-non-pref]({{site.baseurl}}/images/res-non-pref.png)
 <figcaption style="text-align:center">Fig 8: Results of non preference category user</figcaption>
 
+<hr/>
 
-|          | negative feedback | positive feedback |
-|----------|-------------------|-------------------|
-| not sent |        266        |         23        |
-| sent     |         0         |         76        |
+|               | &nbsp; neg feedback &nbsp;    | &nbsp; pos feedback &nbsp;   |
+|:----------:   |:-------------------:  |:-------------------:|
+| &nbsp; not sent &nbsp;    |        266            |         23          |
+| &nbsp; sent &nbsp;        |         0             |         76          |
+{:.mbtablestyle}
 <figcaption style="text-align:center">Table 1: Confusion matric of Preference user</figcaption>
 
+<hr/>
 
-|          | negative feedback | positive feedback |
-|----------|-------------------|-------------------|
-| not sent |        287        |         9         |
-| sent     |         1         |         68        |
+|          	    |  &nbsp; neg feedback &nbsp;	| &nbsp; pos feedback &nbsp; 	|
+|:----------:	|:-------------------:	|:-------------------:	|
+| &nbsp; not sent &nbsp;	    |        287        	|         9         	|
+| &nbsp; sent &nbsp;    	    |         1         	|         68        	|
+{:.mbtablestyle}
 <figcaption style="text-align:center">Table 2: Confusion matric of non Preference user</figcaption>
+
+<hr/>
 
 The confusion matrix confirms the findings of the graphs, for preference users agent was able to correctly classify 93% of time steps. There was no misclassification for negative feedback. However, agent was successfully able to cover 76% of user positive feedback. Total misclassification was about 6.3%. For non preference user agent was able to correctly classify 99% of user negative feedback and 88% of user positive feedback. The total misclassification for non preference user was 5.2%.
 
