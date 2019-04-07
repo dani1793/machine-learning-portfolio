@@ -27,4 +27,4 @@ The bar graph consists of time series data. The main purpose of the bar graph is
 
 The graphs were optimized to show the provided data as clearly as possible to the reader, minimizing the ambiguities for reader, making it easier to observe the trend. However, it was felt that several other factors could have been responsible for this increase in the visitors amount. These factors, could have been studied and presented. Furthermore, extra work could be done to find some good common axis between the data, so that it could be represented in one graph.
 
-The code base for pong project could be found [here](https://github.com/dani1793/Machine-Learning-Projects/blob/master/Information%20Visualization/trends-in-open-source-dataset.ipynb)
+The code base for project could be found [here](https://github.com/dani1793/Machine-Learning-Projects/blob/master/Information%20Visualization/trends-in-open-source-dataset.ipynb)
