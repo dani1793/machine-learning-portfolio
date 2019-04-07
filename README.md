@@ -6,3 +6,10 @@ Demo: [http://webjeda.com/cards](http://webjeda.com/cards)
 * Your new site should be ready.
 
 For more themes visit - [https://jekyll-themes.com](https://jekyll-themes.com)
+
+## Build Locally
+Use the following command to build and run the site locally
+
+```
+bundle exec jekyll serve
+```
