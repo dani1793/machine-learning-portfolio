@@ -21,7 +21,11 @@ The features are comma separated list of features which cannot be used directly 
 ```
 'React.js', 'Ruby on Rails', 'jQuery', 'Android', 'Arduino', 'Microsoft Azure', 'Angular/Angular.js', 'IBM Cloud or Watson', 'MacOS', 'Docker', 'Express', 'Raspberry Pi', 'Flask', 'iOS', 'WordPress', 'Windows', 'Other(s):', 'Spring', 'Laravel', 'Heroku', 'Kubernetes', 'Google Cloud Platform', 'Django', 'ASP.NET', 'Linux', 'Drupal', 'Slack', 'Vue.js', 'AWS'
 ```
-Our purpose is to categorize different kind of web developers and find out which are complementary technologies with different web frameworks. We use clustering techniques for this purpose. The most famous of clustering techniques is K-Mean clustering. However, this technique does not work for categorical data. We use another variant of K-Means known as K-Mode. There are two major differences between K-Means and K-Mode. Firstly, the distance means is changed to hamming distance, and secondly, means of cluster is changed by modes; hence giving algorithm its name. An easy to integrate python [library](https://pypi.org/project/kmodes/) was used to cluster the users into different groups. 
+
+Our purpose is to categorize different kind of web developers and find out which are complementary technologies with different web frameworks. The most basic technique is K means clustering  
+
+## KModes
+The most famous of clustering techniques is K-Mean clustering. However, this technique does not work for categorical data. We use another variant of K-Means known as K-Mode. There are two major differences between K-Means and K-Mode. Firstly, the distance means is changed to hamming distance, and secondly, means of cluster is changed by modes; hence giving algorithm its name. An easy to integrate python [library](https://pypi.org/project/kmodes/) was used to cluster the users into different groups. 
 
 Furthermore, To find ideal number of clusters elbow method is used. In elbow method we use inter cluster distances to find optimal cluster size. A grid search was conducted over number of clusters to find the elbow cluster. The Figure below shows result of gird search
 
@@ -55,3 +59,52 @@ Cluster number of 16 was selected as the ideal number. Next we used inter cluste
 - Last cluster is more inclined towards dev ops as it has more counts for technologies like Docker AWS Linux and Azure.
 
 It could be seen that the most used web technologies are **ReactJS**, **Angular** and **jQuery**, followed by **Vue.js**
+
+## Multiple Correspondence Analysis (MCA)
+
+The dataset consists of 29 dimensions which makes it impossible to visualize the dataset. To overcome this problem we use dimensionality reduction techniques. Most commonly known
+dimensionality reduction technique is Principle Component Analysis (PCA) which projects the data on most high variance dimensions. However, 
+PCA is used for continuous variables but in this dataset we have categorical variables. Due to this reason we use MCA. 
+MCA can be considered as counterpart of PCA for categorical data. 
+The comparision performed in MCA is same as that of PCA, 
+however in PCA quantitative analysis is performed whereas in MCA qualitative analysis is performed. 
+It is used to represent high dimensional data into low dimensional Euclidean space. 
+
+In MCA we create Indicator Matrix which is hot encoded array of variables for each sample. The data is centered so that each individual sample is equally weighted. 
+Afterwards, factor analysis of centered matrix is performed to project matrix on orthogonal dimensions which have highest individual variance. 
+The quality of dimensions is calculated using quality known as Inertia. The simplified definition of Inertia is proportional to (number of categories / number of variables). 
+This definition suggests that Inertia is  dependent upon shape of indicator matrix and data instead of content of indicator matrix. 
+Dimensions with maximum Inertia are selected to represent the data in low dimension.
+
+We apply MCA on the developer survey data and plot the variance for each dimension. The diagram below shows the result
+
+![ ]({{site.baseurl}}/images/developer-survey-mca-dims-varaince.png)
+
+It could be seen in the diagram that the first dimension captures highest variance as compared to other dimensions. We can further see how MCA has distinguished between the categories of each variable.
+
+![ ]({{site.baseurl}}/images/developer-survey-mca-dims-consine.png)
+
+The above plot show the cosine distance of each variable and its category from the center of dimension. From the analysis of plot we can deduce that each variable has two categories namely 0 and 1. Furthermore, the variables all have large cosine distances from the origin for 1st dimension. It can be concluded that 1st dimension separates the categories of variables.
+This is good news as we need to find correlation between positive responses of certain variables.
+
+Next, we use this data to find clusters. Now as the data is not categorical we can apply simple K Means to find the clusters. Lets try K Means for different cluster sizes
+
+This time silhouette score was used to find the best cluster size for the data set. The silhouette value is a measure of how similar an object is to its own cluster (cohesion) compared to other clusters (separation). 
+
+```
+For n_clusters = 2 The average silhouette_score is : 0.4973095814813859
+For n_clusters = 3 The average silhouette_score is : 0.3692897484273676
+For n_clusters = 4 The average silhouette_score is : 0.38030353057618643
+For n_clusters = 5 The average silhouette_score is : 0.35275015501779894
+For n_clusters = 6 The average silhouette_score is : 0.35558912850153945
+```
+
+The results show that only n=2 has the silhouette score close to 0.5. This is also supported by MCA which showed that the new features separated the dataset into 2 clusters of variable categories. The plot below shows the cluster with positive response filtered for specific web technology (Angular/AngularJS)
+
+![ ]({{site.baseurl}}/images/mca_angular.png)
+
+From this analysis we can conclude that web technologies such as **ReactJS** and **JQuery** are frequently used with **AngularJS**
+
+
+
+
