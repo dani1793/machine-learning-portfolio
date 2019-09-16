@@ -82,7 +82,7 @@ We apply MCA on the developer survey data and plot the variance for each dimensi
 
 It could be seen in the diagram that the first dimension captures highest variance as compared to other dimensions. We can further see how MCA has distinguished between the categories of each variable.
 
-![ ]({{site.baseurl}}/images/developer-survey-mca-dims-consine.png)
+![ ]({{site.baseurl}}/images/developer-survey-mca-cosine.png)
 
 The above plot show the cosine distance of each variable and its category from the center of dimension. From the analysis of plot we can deduce that each variable has two categories namely 0 and 1. Furthermore, the variables all have large cosine distances from the origin for 1st dimension. It can be concluded that 1st dimension separates the categories of variables.
 This is good news as we need to find correlation between positive responses of certain variables.
